@@ -1,2 +1,2 @@
 # bharathkarumudi.github.io
-Git Pages for writeyp
+Git Pages for writeup
