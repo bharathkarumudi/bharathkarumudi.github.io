@@ -3,9 +3,15 @@ Brute forcing a website login with Hydra, identify and use a public exploit then
 
 ### ### Reconnaissance
 - There is a HTTP webpage on port 80 and is running a blog.
+
 - Have couple pages and a login page at http://10.10.81.179/Account/login.aspx?ReturnURL=/admin/
+
+- The home page is having a clown and with a Google Image search, it is "Pennywise".
+
 - When visited the home page source, can see the comment saying the website is using BlogEngine 3.3.6.0
+
 - Performed a nmap scan on the server to find if there are any open ports and other services.
+
 - 
 
     PORT     STATE SERVICE            VERSION
@@ -25,6 +31,7 @@ Brute forcing a website login with Hydra, identify and use a public exploit then
     |_clock-skew: -5s
 
 - From above, we can see the server is running IIS HTTP 8.5 on port 80 and have 6 pages that are blocked for crawlers. 
+
 - 3389 is open - potentially for RDP. 
 
 ### Cracking the login credentials
@@ -137,7 +144,7 @@ In the reverse shell that was already opened earlier, with the help of powershel
 Let see what services are running on the host and if there are any that we can use for exploit `meterpreter > ps`.
 
 Of all the listed services, we can see windows scheduler is running.
- 
+
 
      1376  672   WService.exe 
      1556  1376  WScheduler.exe 
@@ -178,7 +185,7 @@ Background the current Meterpreter session and start a new `multi/handler`  reve
 
 We now have the Meterpreter session with Administrator access and grab the flags from `C:\Users\jeff\Desktop\user.txt` and `C:\Users\Administrator\Desktop\root.txt` which are 759bd8af507517bcfaede78a21a73e39 and 7e13d97f05f7ceb9881a3eb3d78d3e72 respectively. 
 
- 
+
 ### Using WinPEAS
 
  [WinPEAS](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS) is a utility where we can find more information about the Windows host and for any vulnerabilities. Download the file into the victim machine just like shell.exe above. 
