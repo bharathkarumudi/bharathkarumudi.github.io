@@ -164,7 +164,8 @@ The functionality of this custom program seems checking  web connection using `c
 - Using the environment variable manipulation we can manipulate the command to execute with our custom command. 
 - As the "status check" is using the curl command, we create a dummy curl file  `/tmp/curl` which executes `/bin/sh`. The path `/tmp` will be added to start of the `PATH` variable.  When a binary is called, it will  always check from left to right and our `/tmp/curl` will be picked up. 
 - As `/usr/bin/menu` has the effective user as root, our command will get execute with root which in turn spawns a root shell. 
-- 
+-  
+
 
     kenobi@kenobi:/tmp$ echo /bin/sh > curl
     kenobi@kenobi:/tmp$ chmod 755 curl
