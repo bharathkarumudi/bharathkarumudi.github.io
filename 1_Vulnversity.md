@@ -1,11 +1,14 @@
-﻿
+---
+layout: default
+---
+
 ## Vulnversity  
 Focuses on active recon, Web app attacks and privilege escalation 
 ### Reconnaissance
 Gathering information about the machine using tools such as nmap. 
 Always perform reconnaissance thoroughly before progressing. 
 
- #### Nmap
+#### Nmap
 
     nmap -v -A -sV -sC -A -p- -Pn -oN nmap.out 10.10.228.44
 
@@ -66,4 +69,3 @@ Navigate to these directories and found `/internal/` is hosting a upload page.
 - The file was written to desired file in /tmp and thus able to escalate the privileges. 
 
 
-> Written with [StackEdit](https://stackedit.io/).

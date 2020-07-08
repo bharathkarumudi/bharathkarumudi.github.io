@@ -1,0 +1,4 @@
+theme: jekyll-theme-cayman
+title: linby.io
+plugins:
+  - jekyll-sitemap
