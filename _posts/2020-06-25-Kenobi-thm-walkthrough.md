@@ -1,7 +1,7 @@
 ---
 title: 'Kenobi - TryHackMe Walkthrough'
 date: 2020-06-25 00:00:00
-featured_image: '/images/posts/THMlogo.png'
+featured_image: '/images/posts/kenobi-linux-ftp-server.png'
 excerpt: Exploiting a Linux machine and enumerate Samba for shares, manipulate proftpd and escalate privileges with path variable manipulation
 ---
 ![](/images/posts/kenobi-thm.png)
