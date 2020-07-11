@@ -1,6 +1,6 @@
 ﻿---
 title: 'Alfred - TryHackMe Walkthrough'
-date: 2020-07-10 00:00:00
+date: 2020-07-02 00:00:00
 featured_image: '/images/posts/THMlogo.png'
 excerpt: Exploit Jenkins to gain an initial shell, then escalate the privileges by exploiting Windows authentication tokens.
 ---
