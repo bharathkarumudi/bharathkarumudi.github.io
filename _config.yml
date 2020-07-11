@@ -1,6 +1,6 @@
-site: Journal Jekyll Theme
+site: A Blog on Technology with Security.
 
-url: http://127.0.0.1:4000
+url: https://bharathkarumudi.github.io
 baseurl:
 
 collections:
