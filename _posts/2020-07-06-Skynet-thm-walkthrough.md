@@ -6,7 +6,7 @@ excerpt: A Vulnerable terminator themed Linux machine.
 ---
 ﻿![](/images/posts/skynet-thm.png)
 
-## Goal
+### Goal
 A Vulnerable terminator themed Linux machine.
 
 ### Reconnaissance

@@ -6,7 +6,7 @@ excerpt: Hack into a Mr. Robot themed Windows machine. Use Metasploit for initia
 ---
 ![](/images/posts/steelmountain-thm.png)
 
-## Goal
+### Goal
 Enumerate windows machine, gain initial access and escalate the privilege to administrator.
 
 ### Meta

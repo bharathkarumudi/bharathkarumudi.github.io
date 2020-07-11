@@ -5,7 +5,7 @@ featured_image: '/images/posts/THMlogo.png'
 excerpt: Brute forcing a website login with Hydra, identify and use a public exploit then escalate the privileges on a Windows machine!
 ---
 
-## Goal  
+### Goal  
 Brute forcing a website login with Hydra, identify and use a public exploit then escalate the privileges on a Windows machine!
 
 ### Reconnaissance

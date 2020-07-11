@@ -6,7 +6,7 @@ excerpt: SQLi (exploiting this vulnerability manually and via SQLMap), cracking 
 ---
 ![](/images/posts/gamezone-thm.png)
 
-## Goal  
+### Goal  
 SQLi (exploiting this vulnerability manually and via SQLMap), cracking a users hashed password, using SSH tunnels to reveal a hidden service and using a metasploit payload to gain root privileges.
 
 ### Recon

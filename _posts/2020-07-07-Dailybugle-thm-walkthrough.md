@@ -6,7 +6,7 @@ excerpt: Compromise a Joomla CMS account via SQLi, practise cracking hashes and 
 ---
 ![](/images/posts/dailybugle-thm.png)
 
-## Goal
+### Goal
 Compromise a Joomla CMS account via SQLi, practise cracking hashes and escalate your privileges by taking advantage of yum.
 
 ### Recon
