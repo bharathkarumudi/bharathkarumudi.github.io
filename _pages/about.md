@@ -11,12 +11,12 @@ In my day job, I have been working in the Detroit Area as a Technical Architect 
 I have professional [certifications](https://www.youracclaim.com/users/bharath-karumudi/badges?sort=most_popular&page=1) in CompTIA Security+, TOGAF 9.1 and AWS .
 
 ### Tech
-I enjoy exploring new technologies in my free time and am a continual learner. Solving business problems, Application design, Solution Architectures, Infrastructure design, Cryptography, Cloud  Computing, Data Privacy and Security are my current passions. 
+I enjoy exploring new technologies in my free time and am a continual learner. Solving business problems, Application design, Solution Architectures, Infrastructure design, Cryptography, Cloud  Computing, Data Privacy and Security are my current passions.
 
 All the projects I will be blogging about will be available on my [GitHub](https://github.com/bharathkarumudi).  
 
 ### Skills
-![skills](/images/about-skills.png){:height="50%" width="50%"}
+![skills](/images/about-skills.png){:height="75%" width="75%"}
 
 ### Public Key
 I am attaching my [PGP](https://keybase.io/bharathkarumudi/pgp_keys.asc) public key if so desired.
