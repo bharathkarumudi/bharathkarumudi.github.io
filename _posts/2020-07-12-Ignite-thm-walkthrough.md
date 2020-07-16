@@ -2,7 +2,7 @@
 title: 'Ignite - TryHackMe Walkthrough'
 date: 2020-07-12 00:00:00
 featured_image: '/images/posts/ignite-thm.png'
-excerpt: A new start-up has a few issues with their web server.
+excerpt: A new start-up has a few issues with their web server, who mis-configured their CMS. 
 ---
 ![](/images/posts/ignite-thm.png)
 
