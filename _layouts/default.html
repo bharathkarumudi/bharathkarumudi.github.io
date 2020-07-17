@@ -88,11 +88,15 @@
 	<script src="{{ '/js/plugins-min.js' | relative_url }}"></script>
 	<script src="{{ '/js/journal-min.js' | relative_url }}"></script>
 
+	<!-- Simple Analytics Code -->
+	<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+	<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt=""/></noscript>
+	
 	{% if site.data.settings.advanced_settings.footer_js %}
 	<!-- Extra Footer JS Code -->
 	{{ site.data.settings.advanced_settings.footer_js }}
 	{% endif %}
-	
+
 </body>
 
 </html>
