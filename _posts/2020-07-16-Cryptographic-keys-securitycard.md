@@ -1,5 +1,5 @@
 ---
-title: 'Managing the Crypto Keys with a hardware security Card for Confidentiality, Integrity and Authentication'
+title: 'Managing the Crypto Keys with a hardware security Card for Confidentiality, Non-repudiation and Authentication'
 date: 2020-07-16 00:00:00
 featured_image: '/images/posts/gpg-keys-yubi.jpg'
 excerpt: Asymmetric/Public Key Cryptography is a great way for Confidentiality, Integrity and Authentication. It overcomes the key exchange issues that generally happens with Symmetric key encryption.  
