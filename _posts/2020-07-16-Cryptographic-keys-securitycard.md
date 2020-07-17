@@ -12,21 +12,21 @@ excerpt: Asymmetric/Public Key Cryptography is a great way for Confidentiality, 
 
 Asymmetric(Public Key) Cryptography is a great way to maintain Confidentiality, Non-repudiation and Authentication. This method overcomes the key exchange issues that generally happens with Symmetric key encryption but on the other side one has to really keep the other half of the key (private key) secure and also use it appropriately.
 
-One of the convenient way is to store the keys in a hardware security card such as Yubikey and Google Titan.
+One of the convenient way is to store the keys in a hardware security card such as [Yubikey](https://www.yubico.com/products/) and [Google Titan](https://store.google.com/product/titan_security_key).
 
 This page describes the procedure on how to store the keys in a hardware security card and how to use it for regular activities like:
 - Message or file decryption
 - Signing the GitHub commits
 - Logging into servers over SSH    
 
-**This procedure is based on Debian based Operating System and for Yubikey.**  
-Before proceed please make sure you have your security card admin and user password. The default admin password is `12345678` and the user password is `123456` for Yubikey.  
+**This following procedure is tested on Debian based Operating System and for Yubikey.**  
+Before you proceed, please make sure you have both admin and user password for the security card. For Yubikey, the default admin password is `12345678` and the user password is `123456`.  
 
-### 1. Installing required Packages
+### 1. Installing required packages
 Let's first install the required packages for the Debian based operating System:
 
 ```bash
-$ sudo apt update
+$ sudo apt update -y
 $ sudo apt install -y \
     curl gnupg2 gnupg-agent \
     cryptsetup scdaemon pcscd \
@@ -37,7 +37,7 @@ $ sudo apt install -y \
 ```
 
 ### 2. Generating a Master Key
-If you don't have a key pair already, lets generate a new one or if you already have one, you can skip this step.
+If you don't have a key pair already, please generate a new one and if you already have one, you can skip this step.
 ```
 gpg --full-gen-key
 ```

@@ -132,7 +132,8 @@ $footer-logo-width: {{ site.data.settings.footer_settings.logo_width }}px;
 // Grid item
 $grid-spacing: {{ site.data.settings.grid_settings.grid_spacing }}px;
 
-
+//inline code snippets
+code.highlighter-rouge {background: #f0f0f0;padding: 3px;border-radius: 5px;}
 
 // - - - - - - - - - - Global styles
 
@@ -153,5 +154,3 @@ $grid-spacing: {{ site.data.settings.grid_settings.grid_spacing }}px;
 
 @import "_includes/_portfolio";
 @import "_includes/_blog";
-
-
