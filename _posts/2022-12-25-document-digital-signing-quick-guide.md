@@ -9,17 +9,17 @@ excerpt: Learn the basics of digital signatures and how they can be used to secu
 
 A digital signature is a way to verify the authenticity and integrity of a document. It works by attaching a unique code to the document that can be used to verify that the document has not been altered since the signature was applied. This is similar to a handwritten signature, but it has the added advantage of being more secure and difficult to forge. 
 
-#### Use Cases for digital signatures  
+#### Use Cases for digital signatures   
+  
+**Legal documents:** Digital signatures can be used to sign legal documents such as contracts, wills, and deeds. This allows for the documents to be signed and legally binding without the need for physical signatures.  
 
-- Legal documents: Digital signatures can be used to sign legal documents such as contracts, wills, and deeds. This allows for the documents to be signed and legally binding without the need for physical signatures.  
+**Business documents:** Digital signatures can be used to sign business documents such as invoices, purchase orders, and employee records. This can improve efficiency and reduce the time and cost associated with physically signing and storing documents.  
 
-- Business documents: Digital signatures can be used to sign business documents such as invoices, purchase orders, and employee records. This can improve efficiency and reduce the time and cost associated with physically signing and storing documents.  
+**Government documents:** Digital signatures are often used by governments to sign and verify important documents such as tax returns, voter registration forms, and passport applications.  
 
-- Government documents: Digital signatures are often used by governments to sign and verify important documents such as tax returns, voter registration forms, and passport applications.  
+**Educational documents:** Digital signatures can be used to sign and verify educational documents such as transcripts, diplomas, and certificates.  
 
-- Educational documents: Digital signatures can be used to sign and verify educational documents such as transcripts, diplomas, and certificates.  
-
-- Healthcare documents: Digital signatures can be used to sign and verify healthcare documents such as consent forms, medical records, and insurance claims.  
+**Healthcare documents:** Digital signatures can be used to sign and verify healthcare documents such as consent forms, medical records, and insurance claims.  
 
 ### Signing Process   
 1. The sender creates a document and a private key.
