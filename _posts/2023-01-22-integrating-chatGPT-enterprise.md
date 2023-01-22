@@ -1,7 +1,7 @@
 ---
 title: 'Unleashing the Potential of GPT-3 in the Enterprise'
 date: 2023-01-22 15:30:00
-featured_image: '/images/posts/ChatGPT-header.jpg'  
+featured_image: '/images/posts/openAI-enterprise-feature.png'  
 excerpt: 'Unleashing the potential of GPT-3 in the enterprise can revolutionize the way you access and manage your data. With GPT-3, business users, developers, and new employees can quickly and easily access the information they need, saving time and effort. From real-time insights and troubleshooting to automating repetitive tasks, GPT-3 can help improve data management and access. Learn how to unlock the power of GPT-3 in your enterprise today.' 
 --- 
 
