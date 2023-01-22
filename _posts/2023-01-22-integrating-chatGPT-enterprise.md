@@ -1,14 +1,12 @@
 ---
 title: 'Unleashing the Potential of GPT-3 in the Enterprise'
 date: 2023-01-22 15:30:00
-featured_image: '/images/posts/envelope-enc-featured.jpg'  
+featured_image: '/images/posts/ChatGPT-header.jpg'  
 excerpt: 'Unleashing the potential of GPT-3 in the enterprise can revolutionize the way you access and manage your data. With GPT-3, business users, developers, and new employees can quickly and easily access the information they need, saving time and effort. From real-time insights and troubleshooting to automating repetitive tasks, GPT-3 can help improve data management and access. Learn how to unlock the power of GPT-3 in your enterprise today.' 
 --- 
 
-![](/images/posts/ChatGPT-header.jpg){:height="40%" width="40%"}  
 
-As many individuals and enterprises are playing with the ChatGPT with different questions, I was thinking about how it can help an enterprise to solve our day to day problems and save time in finding the correct information.
-Below is a high level thought on how we can leverage the GPT-3 model for enterprise. 
+As many individuals and enterprises are playing with the ChatGPT with different questions, I was thinking about how it can help an enterprise to solve our day to day problems and save time in finding the correct information. Below is a high level thought on how we can leverage the GPT-3 model for enterprise. 
 
 ![](/images/posts/GPT-enterprise-idea.png){:height="40%" width="40%"}  
 
