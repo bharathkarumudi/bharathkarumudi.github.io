@@ -43,7 +43,7 @@ The following table summarizes the key registry hives and their functions:
 Registry keys provide valuable forensic data that can help analysts track user activity, program execution, and device connections. Below are some critical registry locations used in forensic investigations:
 
 | Ref | Registry Key | Location | Forensic Relevance |
-|-----|-------------|:--|--|
+|-----|-------------|--|--|
 | RK-1 | OS Version | `SOFTWARE\Microsoft\Windows NT\CurrentVersion` | Identifies the Windows version and build number. |
 | RK-2 | Control Set Configurations | `SYSTEM\CurrentControlSet\` | Stores machine configuration data for system startup. |
 | RK-3 | Past Network Connections | `SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\` | Tracks previously connected networks. |
@@ -56,7 +56,7 @@ Registry keys provide valuable forensic data that can help analysts track user a
 | RK-10 | AmCache | `C:\Windows\appcompat\Programs\Amcache.hve` | Similar to ShimCache but also stores SHA-1 hashes of executed programs. |
 | RK-11 | BAM/DAM Monitoring | `SYSTEM\CurrentControlSet\Services\bam\UserSettings\{SID}` | Tracks application background activity. |
 | RK-12 | USB Devices | `SYSTEM\CurrentControlSet\Enum\USBSTOR` | Stores information about connected USB storage devices. |
-| RK-13 | USB Connection Timestamps | `SYSTEM\CurrentControlSet\Enum\USBSTOR\Ven_Prod_Version\USBSerial#\Properties\{83da6326-97a6-4088-9453-a19231573b29}\` | Records first connection, last connection, and removal timestamps. |
+| RK-13 | USB Connection Timestamps | `SYSTEM\CurrentControlSet\Enum\USBSTOR\Ven_Prod_Version\USBSerial#\Properties\` | Records first connection, last connection, and removal timestamps. |
 | RK-14 | USB Device Volume Name | `SOFTWARE\Microsoft\Windows Portable Devices\Devices` | Stores volume names of USB devices. |
 
 ---
@@ -106,7 +106,7 @@ Investigate unauthorized access using:
     - Important metadata files:
       - `$MFT`, `$LOGFILE`, `$UsnJrnl`
 
-**Tool:** `MFTECmd.exe -f <MFT> --csv <output>`
+- **Tool:** `MFTECmd.exe -f <MFT> --csv <output>`
 
 ### 8.2 Recovering Deleted Files
 - **Disk Images**: Bit-by-bit copies of drives.
@@ -119,7 +119,8 @@ Investigate unauthorized access using:
 - **Tool:** `PECmd.exe -f <prefetch> --csv <output>`
 
 #### Windows Timeline
-- SQLite DB: `C:\Users\<username>\AppData\Local\ConnectedDevicesPlatform\{randomfolder}\ActivitiesCache.db`
+- SQLite DB:  
+  `C:\Users\<username>\AppData\Local\ConnectedDevicesPlatform\{randomfolder}\ActivitiesCache.db`
 - Stores recent app use, focus time.
 - **Tool:** `WxTCmd.exe -f <file> --csv <output>`
 
@@ -131,13 +132,15 @@ Investigate unauthorized access using:
 ### 8.4 File/Folder Metadata
 #### Shortcut (.lnk) Files
 - Logs file paths and open times.
-- Paths:
-  - `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Recent\`
-  - `C:\Users\<username>\AppData\Roaming\Microsoft\Office\Recent\`
+- Paths:  
+  `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Recent\`
+    
+  `C:\Users\<username>\AppData\Roaming\Microsoft\Office\Recent\`
 - **Tool:** `LECmd.exe -f <file> --csv <output>`
 
 #### IE/Edge History
-- Location: `C:\Users\<username>\AppData\Local\Microsoft\Windows\WebCache\WebCacheV*.dat`
+- Location:  
+ `C:\Users\<username>\AppData\Local\Microsoft\Windows\WebCache\WebCacheV*.dat`
 - Tool: **Autopsy**
 
 ### 8.5 USB Setup Logs
@@ -145,6 +148,6 @@ Investigate unauthorized access using:
 
 ---
 ## Conclusion
-Windows forensics plays a crucial role in digital investigations. By understanding registry artifacts, filesystem behaviors, and supporting forensic tools, investigators can uncover critical evidence efficiently. Whether tracking user activity, program execution, or device connections, leveraging these artifacts is key to successful analysis.
+From registry keys to shortcut files, Windows forensics offers a wealth of insight for digital investigators. With the right tools and an understanding of where to look, you can uncover valuable evidence and build stronger timelines. Got thoughts or questions? I’d love to hear how others are approaching Windows artifact analysis. 
 
 
