@@ -127,7 +127,7 @@ Investigate unauthorized access using:
 
 #### Jump Lists
 - Stores recent file usage by apps.
-- Path: `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations`
+- Path: `C:\<>\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations`
 - **Tool:** `JLECmd.exe -f <file> --csv <output>`
 
 ### File/Folder Metadata
