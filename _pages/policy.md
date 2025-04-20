@@ -9,7 +9,7 @@ featured_image: /images/privacy.png
 
 MIT License
 
-Copyright (c) 2020 linby.io and its subdomains.
+Copyright (c) 2025 linby.io and its subdomains.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

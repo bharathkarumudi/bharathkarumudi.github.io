@@ -6,7 +6,7 @@ featured_image: /images/about-me.jpg
 ---
 
 ### Career
-In my day job, I have been working in the Detroit Area as a Technical Architect and have over nine years of experience in Information and Technology field. I went to school at Syracuse University for the Masters of Science in Cybersecurity (G'20), while working  a full time job.  
+In my day job, I have been working in the Detroit Area as a Security Architect and Manager and have over 14 years of experience in Information and Technology field. I went to school at Syracuse University for the Masters of Science in Cybersecurity (G'20), while working a full time job.  
 
 I have professional [certifications](https://www.youracclaim.com/users/bharath-karumudi/badges?sort=most_popular&page=1) in CompTIA Security+, TOGAF 9.1 and AWS .
 
