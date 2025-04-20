@@ -134,14 +134,13 @@ Investigate unauthorized access using:
 #### Shortcut (.lnk) Files
 - Logs file paths and open times.
 - Paths:  
-  `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Recent\`
-    
-  `C:\Users\<username>\AppData\Roaming\Microsoft\Office\Recent\`
+  - `C:\<>\AppData\Roaming\Microsoft\Windows\Recent\`
+  - `C:\<>\AppData\Roaming\Microsoft\Office\Recent\`
 - **Tool:** `LECmd.exe -f <file> --csv <output>`
 
 #### IE/Edge History
 - Location:  
- `C:\Users\<username>\AppData\Local\Microsoft\Windows\WebCache\WebCacheV*.dat`
+ `C:\<>\AppData\Local\Microsoft\Windows\WebCache\WebCacheV*.dat`
 - Tool: **Autopsy**
 
 ### USB Setup Logs
